@@ -1,0 +1,16 @@
+{
+  "name": "3d-star-field",
+  "version": "1.0.0",
+  "description": "Interactive 3D Star Field visualization",
+  "main": "index.html",
+  "scripts": {
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "jsdom": "^23.0.0"
+  },
+  "type": "module"
+}

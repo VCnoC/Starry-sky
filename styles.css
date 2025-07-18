@@ -1,0 +1,443 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Main application container */
+#app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+/* Full-screen canvas */
+#starfield-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    cursor: crosshair;
+    z-index: 1;
+}
+
+/* Control panel styling */
+.control-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    min-width: 250px;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.control-panel h3 {
+    margin-bottom: 15px;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+/* Control group styling */
+.control-group {
+    margin-bottom: 15px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* Range input styling */
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+/* Select dropdown styling */
+select {
+    width: 100%;
+    padding: 8px;
+    background: #222;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+}
+
+/* Value display styling */
+span[id$="-value"] {
+    float: right;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Performance info styling */
+.performance-info {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+    font-size: 12px;
+}
+
+.performance-info div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.performance-info span {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    .control-panel {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        padding: 15px;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+    
+    .control-panel h3 {
+        font-size: 14px;
+    }
+    
+    .control-group label {
+        font-size: 12px;
+    }
+    
+    #starfield-canvas {
+        cursor: default;
+        touch-action: none; /* Prevent default touch behaviors */
+    }
+    
+    /* Optimize touch targets */
+    input[type="range"] {
+        height: 8px;
+        margin: 8px 0;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+        width: 20px;
+        height: 20px;
+    }
+    
+    input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+    }
+    
+    select {
+        padding: 12px 8px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .control-panel {
+        position: fixed;
+        bottom: 10px;
+        top: auto;
+        right: 10px;
+        left: 10px;
+        padding: 10px;
+        max-height: 40vh;
+        border-radius: 12px;
+    }
+    
+    .control-group {
+        margin-bottom: 8px;
+    }
+    
+    .performance-info {
+        margin-top: 8px;
+        padding-top: 8px;
+        font-size: 11px;
+    }
+    
+    .control-panel h3 {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+}
+
+/* Landscape orientation optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+    .control-panel {
+        position: fixed;
+        top: 5px;
+        right: 5px;
+        left: auto;
+        width: 200px;
+        max-height: 90vh;
+        padding: 8px;
+    }
+    
+    .control-panel h3 {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+    
+    .control-group {
+        margin-bottom: 6px;
+    }
+    
+    .control-group label {
+        font-size: 11px;
+    }
+    
+    .performance-info {
+        font-size: 10px;
+    }
+}
+
+/* Very small screens (older phones) */
+@media (max-width: 320px) {
+    .control-panel {
+        padding: 8px;
+        font-size: 11px;
+    }
+    
+    .control-panel h3 {
+        font-size: 12px;
+    }
+    
+    .control-group label {
+        font-size: 10px;
+    }
+    
+    select {
+        padding: 8px 6px;
+        font-size: 14px;
+    }
+}
+
+/* High DPI mobile displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .control-panel {
+        border-width: 0.5px;
+    }
+    
+    input[type="range"] {
+        height: 4px;
+    }
+}
+
+/* Loading state */
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 18px;
+    z-index: 5;
+}
+
+/* Error state */
+.error-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 0, 0, 0.8);
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    z-index: 15;
+}/* 
+Browser fallback styles */
+.browser-fallback {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 600px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+}
+
+.browser-fallback h2 {
+    color: #ff6b6b;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.browser-fallback p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+.browser-fallback ul {
+    text-align: left;
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.browser-fallback li {
+    margin: 8px 0;
+    color: #aaa;
+}
+
+.fallback-image {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    background: #000;
+    border: 1px solid #333;
+    border-radius: 8px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.static-stars {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.static-star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+/* Error message styles */
+.error-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 0, 0, 0.9);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    border: 1px solid #ff0000;
+    z-index: 1001;
+    font-weight: bold;
+    box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 0;
+    }
+}
+
+/* Performance notification styles */
+.performance-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(76, 175, 80, 0.9);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    z-index: 1000;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease-out;
+}
+
+.notification-content {
+    line-height: 1.4;
+}
